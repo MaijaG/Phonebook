@@ -1,5 +1,3 @@
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -155,8 +153,7 @@ public class Main {
             }
             System.out.println("Contact edited! New contact is " + contact);
             return contact;
-        }
-        while (!updateContactNameNumberEmail.equals(1) || !updateContactNameNumberEmail.equals(2) || !updateContactNameNumberEmail.equals(3));
+        } while (!updateContactNameNumberEmail.equals(1) || !updateContactNameNumberEmail.equals(2) || !updateContactNameNumberEmail.equals(3));
 
     }
 
