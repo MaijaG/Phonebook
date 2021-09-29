@@ -6,15 +6,13 @@ public class Main {
    static Phonebook phonebook;
     Scanner scanner = new Scanner(System.in);
 
+// tried to create everything by myself not looking at Car show room, so  may be the solutions ar not the best.
 
     public static void main(String[] args) {
         phonebook = new Phonebook();
         Main main = new Main();
         String selectAcitvity;
 
-//
-//        String data = "23343453";
-//        System.out.println(data.matches(regex));
 
         do {
             Scanner scanner = new Scanner(System.in);
