@@ -3,10 +3,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-   static Phonebook phonebook;
+    static Phonebook phonebook;
     Scanner scanner = new Scanner(System.in);
 
-// tried to create everything by myself not looking at Car show room, so  may be the solutions ar not the best.
 
     public static void main(String[] args) {
         phonebook = new Phonebook();
@@ -44,58 +43,63 @@ public class Main {
         while (!selectAcitvity.equals("Quit"));
 
     }
-        void addContact() {
-            Contact contact = new Contact();
-            System.out.println("Add contact:\n");
 
-            System.out.println("Please insert contact name: ");
-            String addContactName = scanner.nextLine();
-            contact.setName(addContactName);
-            String addContactNumber;
-            String regex = "^[0-9]*$";
-            do {
-                System.out.println("Please insert contact phone number: ");
-                addContactNumber = scanner.nextLine();
+    void addContact() {
+        Contact contact = new Contact();
+        System.out.println("Add contact:\n");
 
-                if (addContactNumber.matches(regex)) {
-                    contact.setPhoneNumber(addContactNumber);
-                } else {
-                    System.out.println("Please insert correct phone number");
-                }
-            } while (!addContactNumber.matches(regex));
+        System.out.println("Please insert contact name: ");
+        String addContactName = scanner.nextLine();
+        contact.setName(addContactName);
 
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Please insert contact email: ");
-            String addContactEmail = scanner.nextLine();
-            contact.setEmail(addContactEmail);
+        String addContactNumber;
+        String regex = "^[0-9]*$";
+        do {
+            System.out.println("Please insert contact phone number: ");
+            addContactNumber = scanner.nextLine();
 
-            phonebook.setContact(contact);
-            System.out.println("Contact added: "+ contact);
+            if (addContactNumber.matches(regex)) {
+                contact.setPhoneNumber(addContactNumber);
+            } else {
+                System.out.println("Please insert correct phone number");
+            }
+        } while (!addContactNumber.matches(regex));
+        Scanner scanner = new Scanner(System.in);
+
+
+        System.out.println("Please insert contact email: ");
+        String addContactEmail = scanner.nextLine();
+        contact.setEmail(addContactEmail);
+
+
+        phonebook.setContact(contact);
+        System.out.println("Contact added: " + contact);
     }
-    public Contact findContact () {
+
+    public Contact findContact() {
         System.out.println("\nFind contact by name, phone number or email. ");
         System.out.println("Insert name or phone number or email: ");
         String findContactNameNumberEmail = scanner.nextLine();
-        for(Contact contact: phonebook.contact) {
+        for (Contact contact : phonebook.contact) {
             if ((contact.getName().equals(findContactNameNumberEmail)) ||
                     (contact.getPhoneNumber().equals(findContactNameNumberEmail)) ||
-                    (contact.getEmail().equals(findContactNameNumberEmail)))
-            {
+                    (contact.getEmail().equals(findContactNameNumberEmail))) {
                 System.out.println("Contact found: " + contact);
                 return contact;
             }
         }
         return null;
     }
-    public Contact updateContact () {
+
+    public Contact updateContact() {
         Contact contact;
         System.out.println("Choose contact to edit.");
-       do {
-           contact = findContact();
-           if (contact == null) {
-               System.out.println("Contact not found, try once again!");
-           }
-       } while (contact==null);
+        do {
+            contact = findContact();
+            if (contact == null) {
+                System.out.println("Contact not found, try once again!");
+            }
+        } while (contact == null);
 
         System.out.println(contact);
         int pos = phonebook.contact.indexOf(contact);
@@ -130,10 +134,20 @@ public class Main {
                     phonebook.contact.set(pos, contact);
                     break;
                 case "3":
-                    System.out.println("Insert email");
-                    String updateContactByEmail = scanner.nextLine();
-                    contact.setEmail(updateContactByEmail);
-                    phonebook.contact.set(pos, contact);
+                    String updateContactByEmail;
+                    String regex1 = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"; // tested email regex, but not working fully.
+
+                    do { System.out.println("Insert email");
+                         updateContactByEmail = scanner.nextLine();
+                        boolean result1 = updateContactByEmail.matches(regex1);
+                        if (result1) {
+                            contact.setEmail(updateContactByEmail);
+                            phonebook.contact.set(pos, contact);
+                        } else {
+                            System.out.println("Please insert correct email");
+                        }
+                    } while (!updateContactByEmail.matches(regex1));
+
                     break;
                 default:
                     System.out.println("Please insert numbers 1 or 2 or 3!!!");
@@ -145,9 +159,10 @@ public class Main {
         while (!updateContactNameNumberEmail.equals(1) || !updateContactNameNumberEmail.equals(2) || !updateContactNameNumberEmail.equals(3));
 
     }
-    public void seeAllContacts () {
+
+    public void seeAllContacts() {
         System.out.println("All contacts list: ");
-        for(Contact contact: phonebook.contact) {
+        for (Contact contact : phonebook.contact) {
             System.out.println(contact);
         }
     }
